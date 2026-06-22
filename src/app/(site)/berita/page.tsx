@@ -44,7 +44,7 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
       {featured && (
         <section style={{ maxWidth: "var(--max-w)", margin: "0 auto", padding: "28px var(--pad-x)" }}>
           <Link href={`/berita/${featured.post.slug}`} className="featured-card">
-            <div style={{ aspectRatio: "16/10", background: "linear-gradient(150deg,#8FAE85,#5F7E58)", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", minHeight: 280 }}>
+            <div className="featured-img" style={{ aspectRatio: "16/10", background: "linear-gradient(150deg,#8FAE85,#5F7E58)", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", minHeight: 280 }}>
               {featured.post.coverKey
                 ? <Image src={`/api/media/${featured.post.coverKey}`} alt={featured.post.title} fill style={{ objectFit: "cover" }} />
                 : <i className="ph ph-image" style={{ fontSize: 40, color: "rgba(255,255,255,.55)" }} />}
@@ -112,6 +112,7 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
         @media (max-width: 900px) {
           .page-title { font-size: 28px !important; }
           .featured-card { grid-template-columns: 1fr; }
+          .featured-img { min-height: 180px !important; }
           .news-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
