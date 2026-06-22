@@ -29,7 +29,7 @@ export default function SiteHeader({ settings }: Props) {
   return (
     <>
       {/* Utility bar */}
-      <div style={{ background: "var(--util-bar)", color: "var(--util-text)", fontSize: 13 }}>
+      <div className="site-utility-bar" style={{ background: "var(--util-bar)", color: "var(--util-text)", fontSize: 13 }}>
         <div style={{ maxWidth: "var(--max-w)", margin: "0 auto", padding: "9px var(--pad-x)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: 7 }}>
@@ -66,11 +66,11 @@ export default function SiteHeader({ settings }: Props) {
               </div>
             )}
             <span style={{ display: "flex", flexDirection: "column", lineHeight: 1.1, gap: 2 }}>
-              <span style={{ fontSize: 10, color: "var(--text-faint)", fontWeight: 700, letterSpacing: "0.07em", textTransform: "uppercase" }}>Lembaga Pendidikan</span>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: 17, color: "var(--green-deep)", letterSpacing: "0.02em", textTransform: "uppercase", lineHeight: 1.05 }}>
+              <span className="site-logo-pre" style={{ fontSize: 10, color: "var(--text-faint)", fontWeight: 700, letterSpacing: "0.07em", textTransform: "uppercase" }}>Lembaga Pendidikan</span>
+              <span className="site-logo-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: 17, color: "var(--green-deep)", letterSpacing: "0.02em", textTransform: "uppercase", lineHeight: 1.05 }}>
                 {settings["nama_lembaga"] ?? "Pondok Pesantren Sukahideng"}
               </span>
-              <span style={{ fontSize: 10, color: "var(--text-faint)", fontWeight: 500, letterSpacing: "0.02em" }}>
+              <span className="site-logo-sub" style={{ fontSize: 10, color: "var(--text-faint)", fontWeight: 500, letterSpacing: "0.02em" }}>
                 {settings["sub_lokasi"] ?? "Kab. Tasikmalaya · Jawa Barat"}
               </span>
             </span>
@@ -125,10 +125,17 @@ export default function SiteHeader({ settings }: Props) {
         .site-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px; background: var(--green); color: var(--bg); font-weight: 600; font-size: 14px; transition: background .15s; }
         .site-cta-btn:hover { background: var(--green-hover); }
         .site-mobile-btn { display: none; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; border: 1px solid #D8D0BC; background: var(--card); cursor: pointer; color: var(--green-deep); font-size: 22px; }
+        .site-utility-bar { display: block; }
         @media (max-width: 900px) {
+          .site-utility-bar { display: none !important; }
           .site-desktop-nav { display: none !important; }
           .site-mobile-btn { display: flex !important; }
           .site-cta-btn { display: none; }
+        }
+        @media (max-width: 600px) {
+          .site-logo-pre { display: none !important; }
+          .site-logo-sub { display: none !important; }
+          .site-logo-title { font-size: 14px !important; }
         }
       `}</style>
     </>

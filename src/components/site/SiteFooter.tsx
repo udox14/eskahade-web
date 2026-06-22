@@ -90,6 +90,10 @@ export default function SiteFooter({ settings }: Props) {
         .footer-social { width: 38px; height: 38px; border-radius: 10px; background: var(--footer-inner); display: flex; align-items: center; justify-content: center; color: #C7D2BC; font-size: 18px; transition: background .15s, color .15s; }
         .footer-social:hover { background: var(--green); color: #F4F0E6; }
         @media (max-width: 900px) { .footer-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 600px) {
+          .footer-grid { gap: 24px; }
+          footer > div > div:last-child { justify-content: center !important; text-align: center !important; gap: 8px !important; }
+        }
         @media (max-width: 540px) { .footer-grid { grid-template-columns: 1fr; } }
       `}</style>
     </footer>

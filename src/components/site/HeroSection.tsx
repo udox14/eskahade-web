@@ -29,7 +29,7 @@ export default function HeroSection({ hero, settings }: Props) {
       <div className="hero-grid">
         {/* Text side */}
         <div>
-          <p style={{ fontFamily: "var(--font-arabic)", fontSize: 22, color: "var(--green-mid)", margin: "0 0 18px" }}>
+          <p className="hero-arabic" style={{ fontFamily: "var(--font-arabic)", fontSize: 22, color: "var(--green-mid)", margin: "0 0 18px" }}>
             بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
           </p>
           <div style={{ display: "inline-flex", alignItems: "center", gap: 9, padding: "6px 14px", border: "1px solid #C9CFBC", borderRadius: 99, fontSize: "12.5px", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--green-accent)", marginBottom: 22 }}>
@@ -100,7 +100,16 @@ export default function HeroSection({ hero, settings }: Props) {
           .hero-img-col { display: none; }
           .hero-h1 { font-size: 36px !important; }
         }
-        @media (max-width: 540px) { .hero-h1 { font-size: 28px !important; } }
+        @media (max-width: 540px) {
+          .hero-h1 { font-size: 28px !important; }
+          .hero-arabic { font-size: 18px !important; margin-bottom: 12px !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-cta-primary, .hero-cta-secondary {
+            width: 100%;
+            justify-content: center;
+          }
+        }
       `}</style>
     </section>
   );

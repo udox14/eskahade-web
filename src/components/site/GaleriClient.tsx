@@ -94,8 +94,14 @@ export default function GaleriClient({ categories, photos }: { categories: Categ
         .galeri-grid { display: grid; grid-template-columns: repeat(4,1fr); grid-auto-rows: 200px; gap: 14px; grid-auto-flow: dense; }
         .galeri-item { border-radius: 18px; position: relative; overflow: hidden; cursor: pointer; display: flex; align-items: flex-end; padding: 16px; }
         .galeri-item:hover { filter: brightness(1.04); }
-        @media (max-width: 900px) { .galeri-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 150px; } }
-        @media (max-width: 540px) { .galeri-grid { grid-template-columns: 1fr; grid-auto-rows: 160px; } }
+        @media (max-width: 900px) {
+          .galeri-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 150px; }
+          .galeri-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+        }
+        @media (max-width: 540px) {
+          .galeri-grid { grid-template-columns: 1fr; grid-auto-rows: 160px; }
+          .galeri-item { grid-column: span 1 !important; grid-row: span 1 !important; }
+        }
       `}</style>
     </>
   );

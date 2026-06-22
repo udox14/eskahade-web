@@ -36,7 +36,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
         <span style={{ color: "var(--text-placeholder)", display: "flex", alignItems: "center" }}>{post.date}</span>
       </div>
 
-      <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 42, lineHeight: 1.1, color: "var(--green-deep)", margin: "0 0 24px", letterSpacing: "-0.02em" }}>
+      <h1 className="news-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 42, lineHeight: 1.1, color: "var(--green-deep)", margin: "0 0 24px", letterSpacing: "-0.02em" }}>
         {post.title}
       </h1>
 
@@ -57,7 +57,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
       {related.length > 0 && (
         <div style={{ marginTop: 64, borderTop: "1px solid var(--border)", paddingTop: 40 }}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 26, color: "var(--green-deep)", margin: "0 0 24px" }}>Berita Lainnya</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18 }}>
+          <div className="related-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 18 }}>
             {related.map(p => (
               <Link key={p.id} href={`/berita/${p.slug}`} style={{ display: "flex", flexDirection: "column", background: "var(--card)", border: "1px solid var(--border)", borderRadius: 16, overflow: "hidden", transition: "transform .2s" }}
                     className="related-card">
@@ -75,6 +75,7 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
       )}
 
       <style>{`
+        .news-title { font-size: 42px; }
         .news-body { font-size: 17px; line-height: 1.8; color: var(--text-muted); }
         .news-body h1,.news-body h2,.news-body h3 { font-family: var(--font-heading); color: var(--green-deep); margin: 1.5em 0 0.5em; }
         .news-body p { margin: 0 0 1.2em; }
@@ -82,6 +83,13 @@ export default async function BeritaDetailPage({ params }: { params: Promise<{ s
         .news-body img { max-width: 100%; border-radius: 12px; margin: 1em 0; }
         .news-body blockquote { border-left: 4px solid var(--gold); padding: 12px 20px; margin: 1.5em 0; background: var(--card); border-radius: 0 12px 12px 0; }
         .related-card:hover { transform: translateY(-3px); }
+        @media (max-width: 768px) {
+          .news-title { font-size: 26px !important; line-height: 1.2 !important; }
+          .related-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 600px) {
+          .news-body { font-size: 15px !important; }
+        }
       `}</style>
     </article>
   );

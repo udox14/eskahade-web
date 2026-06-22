@@ -31,7 +31,7 @@ export default async function GaleriPage() {
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
           <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Dokumentasi
         </div>
-        <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 46, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 12px", lineHeight: 1.08 }}>
+        <h1 className="page-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 46, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 12px", lineHeight: 1.08 }}>
           Galeri Keseharian Santri
         </h1>
         <p style={{ fontSize: 16, color: "var(--text-dim)", maxWidth: 560, margin: 0, lineHeight: 1.7 }}>

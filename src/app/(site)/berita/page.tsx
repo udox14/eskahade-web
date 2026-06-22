@@ -35,7 +35,7 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
           <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Kabar Pesantren
         </div>
-        <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 46, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0, maxWidth: 640, lineHeight: 1.08 }}>
+        <h1 className="page-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 46, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0, maxWidth: 640, lineHeight: 1.08 }}>
           Berita &amp; Kegiatan
         </h1>
       </section>
@@ -50,7 +50,7 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
                 : <i className="ph ph-image" style={{ fontSize: 40, color: "rgba(255,255,255,.55)" }} />}
               <span style={{ position: "absolute", top: 18, left: 18, background: "var(--gold)", color: "var(--gold-dark)", fontSize: "11.5px", fontWeight: 700, padding: "6px 13px", borderRadius: 99 }}>Sorotan Utama</span>
             </div>
-            <div style={{ padding: 36, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <div className="featured-content" style={{ padding: 36, display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <div style={{ display: "flex", gap: 12, fontSize: "12.5px", color: "var(--text-placeholder)", fontWeight: 600, marginBottom: 14 }}>
                 <span style={{ color: "var(--green)" }}>{featured.category?.name ?? "Berita"}</span>
                 <span>·</span>
@@ -102,13 +102,21 @@ export default async function BeritaPage({ searchParams }: { searchParams: Promi
       </section>
 
       <style>{`
+        .page-title { font-size: 46px; }
         .featured-card { display: grid; grid-template-columns: 1.15fr 0.85fr; background: var(--card); border: 1px solid var(--border); border-radius: 24px; overflow: hidden; }
         .news-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
         .news-card { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: transform .2s; }
         .news-card:hover { transform: translateY(-4px); }
         .page-btn { width: 42px; height: 42px; border-radius: 11px; border: 1px solid #D8D0BC; background: var(--card); color: var(--text-muted); cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .page-btn-active { border: none; background: var(--green); color: #F4F0E6; }
-        @media (max-width: 900px) { .featured-card { grid-template-columns: 1fr; } .news-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 900px) {
+          .page-title { font-size: 28px !important; }
+          .featured-card { grid-template-columns: 1fr; }
+          .news-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 600px) {
+          .featured-content { padding: 20px !important; }
+        }
       `}</style>
     </>
   );

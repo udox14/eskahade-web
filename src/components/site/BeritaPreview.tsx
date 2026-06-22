@@ -19,7 +19,7 @@ export default function BeritaPreview({ posts }: { posts: Post[] }) {
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
               <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Kabar Terbaru
             </div>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 40, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>
+            <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 40, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>
               Berita &amp; Kegiatan Pesantren
             </h2>
           </div>
@@ -50,12 +50,16 @@ export default function BeritaPreview({ posts }: { posts: Post[] }) {
         </div>
       </div>
       <style>{`
+        .section-title { font-size: 40px; }
         .berita-all-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 10px; border: 1px solid #C7CDBA; color: var(--green-deep); font-weight: 600; font-size: 14px; transition: background .15s; }
         .berita-all-btn:hover { background: #EFEAD9; }
         .berita-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 20px; }
         .berita-card { display: flex; flex-direction: column; background: var(--bg); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: transform .2s; }
         .berita-card:hover { transform: translateY(-4px); }
         @media (max-width: 900px) { .berita-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+          .section-title { font-size: 26px !important; line-height: 1.2 !important; }
+        }
       `}</style>
     </section>
   );

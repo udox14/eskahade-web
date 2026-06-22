@@ -49,3 +49,21 @@ a { text-decoration: none; }
 
 @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+.page-title {
+  font-size: 46px;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 28px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --pad-x: 16px;
+  }
+}
+

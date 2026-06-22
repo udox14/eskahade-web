@@ -27,7 +27,7 @@ export default async function ProfilPage() {
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 14 }}>
               <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Tentang Kami
             </div>
-            <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 48, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 18px", lineHeight: 1.08 }}>
+            <h1 className="profil-hero-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 48, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 18px", lineHeight: 1.08 }}>
               {ph?.title ?? "Seabad Khidmat Membina Umat"}
             </h1>
             <p style={{ fontSize: "16.5px", lineHeight: 1.75, color: "var(--text-muted)", margin: 0, maxWidth: 520 }}>
@@ -45,7 +45,7 @@ export default async function ProfilPage() {
 
       {/* Sambutan */}
       <section style={{ maxWidth: "var(--max-w)", margin: "0 auto", padding: "36px var(--pad-x)" }}>
-        <div style={{ background: "var(--green-deep)", borderRadius: 26, padding: 44 }} className="sambutan-grid">
+        <div style={{ background: "var(--green-deep)", borderRadius: 26, padding: 44 }} className="sambutan-grid sambutan-box">
           <div style={{ textAlign: "center" }}>
             <div style={{ width: 150, height: 150, borderRadius: 26, margin: "0 auto 18px", background: "#DCE6D5", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--green)", fontSize: 56, overflow: "hidden" }}>
               {sambutan?.imageKey
@@ -75,7 +75,7 @@ export default async function ProfilPage() {
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
             <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Perjalanan
           </div>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>Jejak Sejarah Sukahideng</h2>
+          <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>Jejak Sejarah Sukahideng</h2>
         </div>
         <div className="timeline-grid">
           {timeline.map(t => (
@@ -129,7 +129,7 @@ export default async function ProfilPage() {
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
             <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Fasilitas
           </div>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>Sarana Penunjang Santri</h2>
+          <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>Sarana Penunjang Santri</h2>
         </div>
         <div className="fasilitas-grid">
           {facilities.map(f => (
@@ -150,7 +150,7 @@ export default async function ProfilPage() {
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
               <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Struktur Organisasi
             </div>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>Pengasuh &amp; Pengurus</h2>
+            <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>Pengasuh &amp; Pengurus</h2>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
             <OrgCard size="lg" member={pimpinan} fallbackName="K.H. Ahmad Fauzi" label="Pengasuh / Pimpinan" />
@@ -167,6 +167,8 @@ export default async function ProfilPage() {
       </section>
 
       <style>{`
+        .section-title { font-size: 38px; }
+        .profil-hero-title { font-size: 48px; }
         .profil-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 44px; align-items: center; }
         .sambutan-grid { display: grid; grid-template-columns: 0.6fr 1.4fr; gap: 40px; align-items: center; }
         .timeline-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
@@ -183,6 +185,13 @@ export default async function ProfilPage() {
           .str1-grid { grid-template-columns: 1fr; }
           .str2-grid { grid-template-columns: repeat(2,1fr); }
         }
+        @media (max-width: 768px) {
+          .section-title { font-size: 26px !important; line-height: 1.2 !important; }
+          .profil-hero-title { font-size: 30px !important; line-height: 1.2 !important; }
+        }
+        @media (max-width: 600px) {
+          .sambutan-box { padding: 24px 20px !important; }
+        }
         @media (max-width: 540px) {
           .timeline-grid { grid-template-columns: 1fr; }
           .str2-grid { grid-template-columns: 1fr; }
@@ -195,7 +204,7 @@ export default async function ProfilPage() {
 function OrgCard({ member, size, fallbackName, label }: { member: any; size: "lg" | "md" | "sm"; fallbackName?: string; label?: string }) {
   const sz = size === "lg" ? { avatar: 80, icon: 36, name: 22, bg: "#F6F3EA" } : size === "md" ? { avatar: 58, icon: 26, name: 16, bg: "#F6F3EA" } : { avatar: 50, icon: 22, name: 14.5, bg: "#F6F3EA" };
   return (
-    <div style={{ background: sz.bg, border: "1px solid #DCE2D0", borderRadius: size === "lg" ? 22 : 18, padding: size === "lg" ? "28px 40px" : size === "md" ? 22 : 20, textAlign: "center", minWidth: size === "lg" ? 300 : undefined }}>
+    <div style={{ background: sz.bg, border: "1px solid #DCE2D0", borderRadius: size === "lg" ? 22 : 18, padding: size === "lg" ? "28px 40px" : size === "md" ? 22 : 20, textAlign: "center", width: size === "lg" ? "100%" : undefined, maxWidth: size === "lg" ? 320 : undefined }}>
       <div style={{ width: sz.avatar, height: sz.avatar, borderRadius: 99, margin: "0 auto 12px", background: "var(--green-soft)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--green)", fontSize: sz.icon, overflow: "hidden" }}>
         {member?.imageKey
           ? <Image src={`/api/media/${member.imageKey}`} alt={member?.name ?? ""} width={sz.avatar} height={sz.avatar} style={{ objectFit: "cover" }} />

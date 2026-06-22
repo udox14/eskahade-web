@@ -13,7 +13,7 @@ export default function AgendaSection({ events, settings }: Props) {
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
             <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Agenda
           </div>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 16px", lineHeight: 1.1 }}>
+          <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 16px", lineHeight: 1.1 }}>
             Kegiatan Mendatang
           </h2>
           <p style={{ fontSize: 15, lineHeight: 1.7, color: "var(--text-dim)", margin: "0 0 24px" }}>
@@ -34,7 +34,7 @@ export default function AgendaSection({ events, settings }: Props) {
               <div style={{ width: 1, alignSelf: "stretch", background: "var(--border)" }} />
               <div style={{ flex: 1 }}>
                 <h3 style={{ fontSize: 16, fontWeight: 700, color: "var(--green-deep)", margin: "0 0 4px" }}>{a.title}</h3>
-                <div style={{ fontSize: 13, color: "var(--text-faint)", display: "flex", gap: 16 }}>
+                <div className="agenda-meta" style={{ fontSize: 13, color: "var(--text-faint)", display: "flex", gap: 16 }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><i className="ph ph-clock" /> {a.time}</span>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}><i className="ph ph-map-pin" /> {a.location}</span>
                 </div>
@@ -44,12 +44,20 @@ export default function AgendaSection({ events, settings }: Props) {
         </div>
       </div>
       <style>{`
+        .section-title { font-size: 38px; }
         .agenda-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 44px; align-items: start; }
         .agenda-item { display: flex; align-items: center; gap: 20px; padding: 18px 22px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; }
         .agenda-item:hover { border-color: var(--border-hover); }
         .agenda-cal-btn { display: inline-flex; align-items: center; gap: 9px; padding: 13px 20px; border-radius: 11px; background: var(--green); color: var(--bg); font-weight: 600; font-size: 14.5px; transition: background .15s; }
         .agenda-cal-btn:hover { background: var(--green-hover); }
         @media (max-width: 900px) { .agenda-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+          .section-title { font-size: 26px !important; line-height: 1.2 !important; }
+        }
+        @media (max-width: 600px) {
+          .agenda-item { padding: 14px 16px !important; gap: 14px !important; }
+          .agenda-meta { gap: 8px 12px !important; flex-wrap: wrap; }
+        }
       `}</style>
     </section>
   );

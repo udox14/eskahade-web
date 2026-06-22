@@ -9,7 +9,7 @@ export default function TestimoniSection({ testimonials }: { testimonials: Testi
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
             <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Testimoni
           </div>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>
+          <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>
             Kata Mereka Tentang Sukahideng
           </h2>
         </div>
@@ -37,8 +37,12 @@ export default function TestimoniSection({ testimonials }: { testimonials: Testi
         </div>
       </div>
       <style>{`
+        .section-title { font-size: 38px; }
         .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
         @media (max-width: 900px) { .testi-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+          .section-title { font-size: 26px !important; line-height: 1.2 !important; }
+        }
       `}</style>
     </section>
   );

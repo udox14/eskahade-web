@@ -8,7 +8,7 @@ export default function ProgramsSection({ programs }: { programs: ProgramRow[] }
           <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
             <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Jenjang Pendidikan
           </div>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 40, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0, maxWidth: 560, lineHeight: 1.1 }}>
+          <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 40, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0, maxWidth: 560, lineHeight: 1.1 }}>
             Satu Atap, Beragam Jalur Keilmuan
           </h2>
         </div>
@@ -31,10 +31,14 @@ export default function ProgramsSection({ programs }: { programs: ProgramRow[] }
       </div>
 
       <style>{`
+        .section-title { font-size: 40px; }
         .programs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
         .program-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 26px; transition: border-color .2s, transform .2s; }
         .program-card:hover { transform: translateY(-3px); border-color: var(--border-hover); }
         @media (max-width: 900px) { .programs-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 768px) {
+          .section-title { font-size: 26px !important; line-height: 1.2 !important; }
+        }
         @media (max-width: 540px) { .programs-grid { grid-template-columns: 1fr; } }
       `}</style>
     </section>

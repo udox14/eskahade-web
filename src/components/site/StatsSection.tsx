@@ -15,6 +15,9 @@ export default function StatsSection({ stats }: { stats: StatRow[] }) {
       <style>{`
         .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
         @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 600px) {
+          .stats-grid { padding: 24px 16px !important; gap: 16px !important; }
+        }
         @media (max-width: 540px) { .stats-grid { grid-template-columns: 1fr; } }
       `}</style>
     </section>

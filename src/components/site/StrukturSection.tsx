@@ -14,14 +14,14 @@ export default function StrukturSection({ pimpinan, struktur }: Props) {
         <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
           <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Struktur Organisasi
         </div>
-        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>
+        <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 38, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: 0 }}>
           Pengasuh &amp; Pengurus
         </h2>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 22 }}>
         {/* Pimpinan */}
-        <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 20, padding: "26px 34px", textAlign: "center", minWidth: 280 }}>
+        <div style={{ background: "var(--card)", border: "1px solid var(--border)", borderRadius: 20, padding: "26px 34px", textAlign: "center", width: "100%", maxWidth: 320 }}>
           <div style={{ width: 72, height: 72, borderRadius: 99, margin: "0 auto 14px", background: "#DCE6D5", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--green)", fontSize: 32, overflow: "hidden" }}>
             {pimpinan?.imageKey
               ? <Image src={`/api/media/${pimpinan.imageKey}`} alt={pimpinan.name} width={72} height={72} style={{ objectFit: "cover", width: 72, height: 72 }} />
@@ -56,8 +56,12 @@ export default function StrukturSection({ pimpinan, struktur }: Props) {
       </div>
 
       <style>{`
+        .section-title { font-size: 38px; }
         .struktur-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; width: 100%; }
         @media (max-width: 900px) { .struktur-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 768px) {
+          .section-title { font-size: 26px !important; line-height: 1.2 !important; }
+        }
         @media (max-width: 540px) { .struktur-grid { grid-template-columns: 1fr; } }
       `}</style>
     </section>

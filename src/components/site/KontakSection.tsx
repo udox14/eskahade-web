@@ -18,7 +18,7 @@ export default function KontakSection({ settings }: Props) {
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: "12.5px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--green-mid)", marginBottom: 12 }}>
               <span style={{ width: 22, height: "1.5px", background: "var(--gold)" }} /> Kontak &amp; Lokasi
             </div>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 36, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 24px", lineHeight: 1.1 }}>
+            <h2 className="section-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 36, letterSpacing: "-0.02em", color: "var(--green-deep)", margin: "0 0 24px", lineHeight: 1.1 }}>
               Berkunjung &amp; Silaturahmi
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
@@ -53,8 +53,12 @@ export default function KontakSection({ settings }: Props) {
         </div>
       </div>
       <style>{`
+        .section-title { font-size: 36px; }
         .kontak-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 40px; align-items: stretch; }
         @media (max-width: 900px) { .kontak-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+          .section-title { font-size: 26px !important; line-height: 1.2 !important; }
+        }
       `}</style>
     </section>
   );
