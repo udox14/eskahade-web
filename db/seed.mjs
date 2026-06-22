@@ -10,7 +10,7 @@ import { execSync } from "node:child_process";
 
 const pbkdf2 = promisify(pbkdf2Node);
 const mode = process.argv[2] ?? "local";
-const adminEmail = process.env.ADMIN_EMAIL ?? "admin@sukahideng.sch.id";
+const adminEmail = process.env.ADMIN_EMAIL ?? "admin@sukahideng.or.id";
 const adminName = process.env.ADMIN_NAME ?? "Admin Sukahideng";
 const adminPassword = process.env.ADMIN_PASSWORD ?? "Sukahideng2026!";
 
