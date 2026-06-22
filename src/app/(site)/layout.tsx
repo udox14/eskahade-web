@@ -17,7 +17,6 @@ const bricolage = Bricolage_Grotesque({
   weight: ["500", "600", "700", "800"],
   variable: "--loaded-bricolage",
   display: "swap",
-  axes: ["opsz"],
 });
 
 const amiri = Amiri({

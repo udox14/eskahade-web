@@ -6,7 +6,7 @@ import AdminTopbar from "@/components/admin/AdminTopbar";
 import "@/app/globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], variable: "--loaded-plus-jakarta", display: "swap" });
-const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--loaded-bricolage", display: "swap", axes: ["opsz"] });
+const bricolage = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--loaded-bricolage", display: "swap" });
 
 interface Props { children: React.ReactNode }
 
