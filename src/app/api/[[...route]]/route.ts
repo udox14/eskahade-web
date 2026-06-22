@@ -21,7 +21,9 @@ import { getOrgMembers, upsertOrgMember, deleteOrgMember, updateOrgOrder } from 
 import { getHistoryTimeline, getFacilities, upsertProfileHero, upsertSambutan, upsertVision, upsertHistoryItem, deleteHistoryItem, upsertMissionPoint, deleteMissionPoint, upsertFacility, deleteFacility } from "@/modules/profile/repo";
 import { upsertSettings } from "@/modules/settings/repo";
 
-export const runtime = "edge";
+// No `runtime = "edge"` — under @opennextjs/cloudflare the default Node.js
+// runtime runs on workerd; forcing edge breaks module interop (undefined
+// default exports) and crashes routes like /api/auth/login.
 
 const app = new Hono().basePath("/api");
 
