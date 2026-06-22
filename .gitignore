@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# cloudflare / opennext
+/.open-next/
+/.wrangler/
+cloudflare-env.d.ts
+
+# design handoff bundle (reference only, not part of the app)
+/_design_handoff/
+
+# generated seed SQL (contains hashed password, re-generated each run)
+/db/seed.sql

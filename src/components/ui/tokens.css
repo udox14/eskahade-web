@@ -1,0 +1,51 @@
+/* ===== Brand Design Tokens ===== */
+:root {
+  --bg: #F4F0E6;
+  --card: #FBF9F2;
+  --card-alt: #F6F3EA;
+  --green-deep: #1F3A27;
+  --green: #2E5237;
+  --green-hover: #26452D;
+  --green-soft: #E7EFE0;
+  --green-mid: #6E8C66;
+  --green-accent: #4A6B4A;
+  --gold: #D9A93A;
+  --gold-dark: #3A2D08;
+  --footer-bg: #1A3221;
+  --footer-inner: #25422D;
+  --text: #283325;
+  --text-muted: #4C5645;
+  --text-dim: #5A6450;
+  --text-faint: #6E7B66;
+  --text-placeholder: #8A9380;
+  --border: #E6DFCC;
+  --border-hover: #C9CFBC;
+  --border-nav: #E3DCC8;
+  --border-footer: #2A4631;
+  --section-alt: #E9EEE2;
+  --scrollbar-thumb: #C2CEB6;
+  --util-bar: #1F3A27;
+  --util-text: #E7E0CC;
+  --util-icon: #D9A93A;
+  --radius-sm: 9px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  --max-w: 1240px;
+  --pad-x: 28px;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-heading: 'Bricolage Grotesque', sans-serif;
+  --font-arabic: 'Amiri', serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); }
+html { scroll-behavior: smooth; }
+a { text-decoration: none; }
+::selection { background: #C9D9BF; color: var(--green-deep); }
+
+::-webkit-scrollbar { width: 11px; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 99px; border: 3px solid var(--bg); }
+
+@keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }

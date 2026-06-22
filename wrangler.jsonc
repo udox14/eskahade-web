@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sukahideng-web",
+  "account_id": "a170ed4144c00927988a828aa9a41896",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-03-25",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sukahideng-web",
+      "database_id": "af35c3a5-88fd-4012-b69d-6fdc03a1bf42",
+      "migrations_dir": "db/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "sukahideng-foto"
+    }
+  ],
+  "vars": {
+    "APP_NAME": "Pondok Pesantren Sukahideng"
+  }
+}
