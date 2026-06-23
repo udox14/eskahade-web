@@ -9,7 +9,7 @@ export default function AdminSidebar() {
   const path = usePathname();
 
   return (
-    <aside style={{ width: 256, background: "var(--green-deep)", color: "#C7D2BC", display: "flex", flexDirection: "column", flexShrink: 0, height: "100vh", position: "sticky", top: 0, overflow: "auto" }}>
+    <aside className="admin-sidebar" style={{ width: 256, background: "var(--green-deep)", color: "#C7D2BC", display: "flex", flexDirection: "column", flexShrink: 0, height: "100vh", position: "sticky", top: 0, overflow: "auto" }}>
       {/* Brand */}
       <div style={{ padding: "22px 20px 16px", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
         <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: 15, color: "#F4F0E6", textTransform: "uppercase", letterSpacing: "0.04em", lineHeight: 1.2 }}>
@@ -45,6 +45,25 @@ export default function AdminSidebar() {
           <i className="ph ph-arrow-square-out" /> Lihat Website
         </Link>
       </div>
+
+      <style>{`
+        .admin-sidebar {
+          transition: transform 0.3s ease;
+          z-index: 100;
+        }
+        @media (max-width: 900px) {
+          .admin-sidebar {
+            position: fixed !important;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            transform: translateX(-100%);
+          }
+          .admin-sidebar-checkbox:checked ~ .admin-sidebar {
+            transform: translateX(0) !important;
+          }
+        }
+      `}</style>
     </aside>
   );
 }

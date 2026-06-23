@@ -62,7 +62,7 @@ export default function AdminListPage<T extends { id: number; sortOrder?: number
         <button onClick={() => setEditing(null)} style={{ display: "flex", alignItems: "center", gap: 6, background: "none", border: "none", cursor: "pointer", color: "#6E7B66", fontSize: 14, marginBottom: 20, padding: 0 }}>
           <i className="ph ph-arrow-left" /> Kembali ke daftar
         </button>
-        <div style={{ background: "#fff", borderRadius: 18, border: "1px solid #E5EAE2", padding: 32, maxWidth: 720 }}>
+        <div className="admin-form-container" style={{ background: "#fff", borderRadius: 18, border: "1px solid #E5EAE2", padding: 32, maxWidth: 720 }}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 20, color: "#1F3A27", margin: "0 0 24px" }}>
             {editing === "new" ? `Tambah ${title}` : `Edit ${title}`}
           </h2>
@@ -74,7 +74,7 @@ export default function AdminListPage<T extends { id: number; sortOrder?: number
 
   return (
     <div>
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
+      <div className="admin-header-row" style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 28 }}>
         <div>
           <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: 26, color: "#1F3A27", margin: "0 0 6px" }}>{title}</h1>
           {subtitle && <p style={{ color: "#6E7B66", fontSize: 14, margin: 0 }}>{subtitle}</p>}
@@ -84,7 +84,7 @@ export default function AdminListPage<T extends { id: number; sortOrder?: number
         </button>
       </div>
 
-      <div style={{ background: "#fff", borderRadius: 18, border: "1px solid #E5EAE2" }}>
+      <div style={{ background: "#fff", borderRadius: 18, border: "1px solid #E5EAE2", overflowX: "auto" }}>
         {rows.length === 0 ? (
           <div style={{ padding: "48px 0", textAlign: "center", color: "#97A78D", fontSize: 14 }}>
             <i className="ph ph-inbox" style={{ fontSize: 40, display: "block", marginBottom: 8 }} />
@@ -135,6 +135,21 @@ export default function AdminListPage<T extends { id: number; sortOrder?: number
         onCancel={() => setDelTarget(null)}
         loading={deleting}
       />
+      <style>{`
+        @media (max-width: 600px) {
+          .admin-header-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+          }
+          .admin-header-row button {
+            align-self: flex-start !important;
+          }
+          .admin-form-container {
+            padding: 20px 16px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

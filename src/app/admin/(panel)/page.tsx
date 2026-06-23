@@ -59,7 +59,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Stat cards */}
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 36 }}>
+      <div className="stat-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, marginBottom: 36 }}>
         {statCards.map(c => (
           <Link key={c.label} href={c.href} style={{ background: "#fff", borderRadius: 16, padding: "22px 24px", border: "1px solid #E5EAE2", display: "flex", alignItems: "center", gap: 18, textDecoration: "none" }}>
             <div style={{ width: 48, height: 48, borderRadius: 12, background: "#E7EFE0", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -76,7 +76,7 @@ export default async function AdminDashboard() {
       {/* Quick actions */}
       <div style={{ marginBottom: 12 }}>
         <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 18, color: "#1F3A27", margin: "0 0 16px" }}>Aksi Cepat</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
+        <div className="quick-actions-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12 }}>
           {quickLinks.map(l => (
             <Link key={l.label} href={l.href} style={{ display: "flex", alignItems: "center", gap: 12, background: "#fff", border: "1px solid #E5EAE2", borderRadius: 14, padding: "16px 20px", textDecoration: "none", color: "#283325" }}>
               <div style={{ width: 38, height: 38, borderRadius: 10, background: l.color + "18", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
@@ -98,6 +98,17 @@ export default async function AdminDashboard() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .stat-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .quick-actions-grid { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 550px) {
+          .stat-cards-grid { grid-template-columns: 1fr !important; }
+          .quick-actions-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </div>
   );
 }
