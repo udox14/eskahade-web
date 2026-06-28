@@ -1,14 +1,16 @@
 import { getBucket } from "@/lib/cf";
 import { NextRequest, NextResponse } from "next/server";
 
-// GET /api/media/:key — serve object from R2
+// GET /api/media/*key — serve object from R2
+// key is a catch-all array because R2 keys contain slashes (e.g. "uploads/123-foo.png")
 export async function GET(
   _req: NextRequest,
-  { params }: { params: Promise<{ key: string }> }
+  { params }: { params: Promise<{ key: string[] }> }
 ) {
   const { key } = await params;
+  const resolvedKey = key.join("/");
   const bucket = getBucket();
-  const obj = await bucket.get(decodeURIComponent(key));
+  const obj = await bucket.get(resolvedKey);
 
   if (!obj) {
     return new NextResponse("Not found", { status: 404 });
