@@ -42,6 +42,7 @@ export default function PsbKontenPage() {
   const [c, setC] = useState<SiteContent | null>(null);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
+  const [tab, setTab] = useState<TabId>("umum");
 
   useEffect(() => {
     apiGet<Record<string, unknown>>("/api/psb/admin/settings")
@@ -103,101 +104,160 @@ export default function PsbKontenPage() {
         <div style={{ marginBottom: 16, padding: "10px 14px", borderRadius: 10, background: "#E7EFE0", color: GREEN, fontSize: 13 }}>{msg}</div>
       )}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-        <Section title="Umum">
-          <Field label="Tahun Pelajaran" value={c.tahunPelajaran} onChange={(v) => set("tahunPelajaran", v)} />
-          <Field label="Alamat" value={c.alamat} onChange={(v) => set("alamat", v)} textarea />
-          <Field label="WhatsApp Bendahara" value={c.waBendahara} onChange={(v) => set("waBendahara", v)} />
-        </Section>
+      {/* Tabbed editor: rail kiri + panel kanan (anti scroll panjang) */}
+      <div style={{ display: "flex", gap: 20, alignItems: "flex-start", flexWrap: "wrap" }}>
+        <nav style={{ display: "flex", flexWrap: "wrap", gap: 4, width: 220, flexShrink: 0 }} className="psb-konten-rail">
+          {TABS.map((t) => {
+            const active = t.id === tab;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                style={{
+                  display: "flex", alignItems: "center", gap: 10, width: "100%", textAlign: "left",
+                  padding: "10px 12px", borderRadius: 10, cursor: "pointer", fontSize: 13.5,
+                  border: "1px solid " + (active ? GREEN : "transparent"),
+                  background: active ? "#E7EFE0" : "transparent",
+                  color: active ? GREEN_DEEP : "#4C5645", fontWeight: active ? 700 : 500,
+                }}
+              >
+                <i className={`ph ph-${t.icon}`} style={{ fontSize: 16, flexShrink: 0 }} /> {t.label}
+              </button>
+            );
+          })}
+        </nav>
 
-        <Section title="Rekening">
-          <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
-            <Field label="Bank" value={c.rekening.bank} onChange={(v) => set("rekening", { ...c.rekening, bank: v })} />
-            <Field label="Nomor" value={c.rekening.nomor} onChange={(v) => set("rekening", { ...c.rekening, nomor: v })} />
-            <Field label="Atas Nama" value={c.rekening.atasNama} onChange={(v) => set("rekening", { ...c.rekening, atasNama: v })} />
-          </div>
-        </Section>
+        <div style={{ flex: 1, minWidth: 280 }}>
+          {tab === "umum" && (
+            <Section title="Umum">
+              <Field label="Tahun Pelajaran" value={c.tahunPelajaran} onChange={(v) => set("tahunPelajaran", v)} />
+              <Field label="Alamat" value={c.alamat} onChange={(v) => set("alamat", v)} textarea />
+              <Field label="WhatsApp Bendahara" value={c.waBendahara} onChange={(v) => set("waBendahara", v)} />
+            </Section>
+          )}
 
-        <Section title="Tanggal Penting">
-          <List items={c.importantDates} onChange={(items) => set("importantDates", items)}
-            blank={{ tanggal: "", fase: "", catatan: "", icon: "calendar-dots" } as DateItem}
-            render={(it, upd) => (
-              <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
-                <Field label="Tanggal" value={it.tanggal} onChange={(v) => upd({ ...it, tanggal: v })} />
-                <Field label="Fase" value={it.fase} onChange={(v) => upd({ ...it, fase: v })} />
-                <Field label="Catatan" value={it.catatan} onChange={(v) => upd({ ...it, catatan: v })} />
-                <Field label="Icon (Phosphor)" value={it.icon} onChange={(v) => upd({ ...it, icon: v })} />
+          {tab === "rekening" && (
+            <Section title="Rekening">
+              <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
+                <Field label="Bank" value={c.rekening.bank} onChange={(v) => set("rekening", { ...c.rekening, bank: v })} />
+                <Field label="Nomor" value={c.rekening.nomor} onChange={(v) => set("rekening", { ...c.rekening, nomor: v })} />
+                <Field label="Atas Nama" value={c.rekening.atasNama} onChange={(v) => set("rekening", { ...c.rekening, atasNama: v })} />
               </div>
-            )} />
-        </Section>
+            </Section>
+          )}
 
-        <Section title="Biaya">
-          <List items={c.feeGroups} onChange={(items) => set("feeGroups", items)}
-            blank={{ title: "", items: [], total: 0 } as FeeGroup}
-            render={(g, upd) => (
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <Field label="Judul Grup" value={g.title} onChange={(v) => upd({ ...g, title: v })} />
-                <div>
-                  <span style={labelStyle}>Rincian</span>
-                  <List items={g.items} onChange={(items) => upd({ ...g, items })} blank={{ label: "", nominal: 0 }} compact
-                    render={(item, updItem) => (
-                      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "1fr 160px" }}>
-                        <Field label="Label" value={item.label} onChange={(v) => updItem({ ...item, label: v })} />
-                        <NumField label="Nominal" value={item.nominal} onChange={(v) => updItem({ ...item, nominal: v })} />
-                      </div>
-                    )} />
-                </div>
-                <NumField label="Total" value={g.total} onChange={(v) => upd({ ...g, total: v })} />
-              </div>
-            )} />
-        </Section>
+          {tab === "tanggal" && (
+            <Section title="Tanggal Penting">
+              <List items={c.importantDates} onChange={(items) => set("importantDates", items)}
+                blank={{ tanggal: "", fase: "", catatan: "", icon: "calendar-dots" } as DateItem}
+                render={(it, upd) => (
+                  <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
+                    <Field label="Tanggal" value={it.tanggal} onChange={(v) => upd({ ...it, tanggal: v })} />
+                    <Field label="Fase" value={it.fase} onChange={(v) => upd({ ...it, fase: v })} />
+                    <Field label="Catatan" value={it.catatan} onChange={(v) => upd({ ...it, catatan: v })} />
+                    <Field label="Icon (Phosphor)" value={it.icon} onChange={(v) => upd({ ...it, icon: v })} />
+                  </div>
+                )} />
+            </Section>
+          )}
 
-        <Section title="Persyaratan">
-          <List items={c.requirements} onChange={(items) => set("requirements", items)}
-            blank={{ title: "", items: [] } as ReqGroup}
-            render={(g, upd) => (
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <Field label="Judul Grup" value={g.title} onChange={(v) => upd({ ...g, title: v })} />
-                <StringList label="Item" items={g.items} onChange={(items) => upd({ ...g, items })} />
-              </div>
-            )} />
-        </Section>
+          {tab === "biaya" && (
+            <Section title="Biaya">
+              <List items={c.feeGroups} onChange={(items) => set("feeGroups", items)}
+                blank={{ title: "", items: [], total: 0 } as FeeGroup}
+                render={(g, upd) => (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    <Field label="Judul Grup" value={g.title} onChange={(v) => upd({ ...g, title: v })} />
+                    <div>
+                      <span style={labelStyle}>Rincian</span>
+                      <List items={g.items} onChange={(items) => upd({ ...g, items })} blank={{ label: "", nominal: 0 }} compact
+                        render={(item, updItem) => (
+                          <div style={{ display: "grid", gap: 12, gridTemplateColumns: "1fr 160px" }}>
+                            <Field label="Label" value={item.label} onChange={(v) => updItem({ ...item, label: v })} />
+                            <NumField label="Nominal" value={item.nominal} onChange={(v) => updItem({ ...item, nominal: v })} />
+                          </div>
+                        )} />
+                    </div>
+                    <NumField label="Total" value={g.total} onChange={(v) => upd({ ...g, total: v })} />
+                  </div>
+                )} />
+            </Section>
+          )}
 
-        <Section title="Agenda">
-          <List items={c.agenda} onChange={(items) => set("agenda", items)}
-            blank={{ tanggal: "", judul: "", deskripsi: "" } as AgendaItem}
-            render={(it, upd) => (
-              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
-                  <Field label="Tanggal" value={it.tanggal} onChange={(v) => upd({ ...it, tanggal: v })} />
-                  <Field label="Judul" value={it.judul} onChange={(v) => upd({ ...it, judul: v })} />
-                </div>
-                <Field label="Deskripsi" value={it.deskripsi} onChange={(v) => upd({ ...it, deskripsi: v })} textarea />
-              </div>
-            )} />
-        </Section>
+          {tab === "syarat" && (
+            <Section title="Persyaratan">
+              <List items={c.requirements} onChange={(items) => set("requirements", items)}
+                blank={{ title: "", items: [] } as ReqGroup}
+                render={(g, upd) => (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    <Field label="Judul Grup" value={g.title} onChange={(v) => upd({ ...g, title: v })} />
+                    <StringList label="Item" items={g.items} onChange={(items) => upd({ ...g, items })} />
+                  </div>
+                )} />
+            </Section>
+          )}
 
-        <Section title="Panduan Daftar">
-          <StringList label="Langkah" items={c.panduanDaftar} onChange={(items) => set("panduanDaftar", items)} />
-        </Section>
+          {tab === "agenda" && (
+            <Section title="Agenda">
+              <List items={c.agenda} onChange={(items) => set("agenda", items)}
+                blank={{ tanggal: "", judul: "", deskripsi: "" } as AgendaItem}
+                render={(it, upd) => (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                    <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
+                      <Field label="Tanggal" value={it.tanggal} onChange={(v) => upd({ ...it, tanggal: v })} />
+                      <Field label="Judul" value={it.judul} onChange={(v) => upd({ ...it, judul: v })} />
+                    </div>
+                    <Field label="Deskripsi" value={it.deskripsi} onChange={(v) => upd({ ...it, deskripsi: v })} textarea />
+                  </div>
+                )} />
+            </Section>
+          )}
 
-        <Section title="Kontak Panitia">
-          <List items={c.contacts} onChange={(items) => set("contacts", items)}
-            blank={{ nama: "", role: "", wa: "" } as Contact}
-            render={(it, upd) => (
-              <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}>
-                <Field label="Nama" value={it.nama} onChange={(v) => upd({ ...it, nama: v })} />
-                <Field label="Peran" value={it.role} onChange={(v) => upd({ ...it, role: v })} />
-                <Field label="WhatsApp" value={it.wa} onChange={(v) => upd({ ...it, wa: v })} />
-              </div>
-            )} />
-        </Section>
+          {tab === "panduan" && (
+            <Section title="Panduan Daftar">
+              <StringList label="Langkah" items={c.panduanDaftar} onChange={(items) => set("panduanDaftar", items)} />
+            </Section>
+          )}
+
+          {tab === "kontak" && (
+            <Section title="Kontak Panitia">
+              <List items={c.contacts} onChange={(items) => set("contacts", items)}
+                blank={{ nama: "", role: "", wa: "" } as Contact}
+                render={(it, upd) => (
+                  <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))" }}>
+                    <Field label="Nama" value={it.nama} onChange={(v) => upd({ ...it, nama: v })} />
+                    <Field label="Peran" value={it.role} onChange={(v) => upd({ ...it, role: v })} />
+                    <Field label="WhatsApp" value={it.wa} onChange={(v) => upd({ ...it, wa: v })} />
+                  </div>
+                )} />
+            </Section>
+          )}
+
+          <div style={{ marginTop: 20, display: "flex", justifyContent: "flex-end" }}>{saveBtn}</div>
+        </div>
       </div>
 
-      <div style={{ marginTop: 28, display: "flex", justifyContent: "flex-end" }}>{saveBtn}</div>
+      <style>{`
+        @media (max-width: 720px) {
+          .psb-konten-rail { width: 100% !important; flex-direction: row !important; overflow-x: auto; }
+          .psb-konten-rail button { width: auto !important; white-space: nowrap; }
+        }
+      `}</style>
     </div>
   );
 }
+
+type TabId = "umum" | "rekening" | "tanggal" | "biaya" | "syarat" | "agenda" | "panduan" | "kontak";
+const TABS: { id: TabId; label: string; icon: string }[] = [
+  { id: "umum", label: "Umum", icon: "info" },
+  { id: "rekening", label: "Rekening", icon: "bank" },
+  { id: "tanggal", label: "Tanggal Penting", icon: "calendar-dots" },
+  { id: "biaya", label: "Biaya", icon: "money" },
+  { id: "syarat", label: "Persyaratan", icon: "list-checks" },
+  { id: "agenda", label: "Agenda", icon: "calendar-check" },
+  { id: "panduan", label: "Panduan Daftar", icon: "map-trifold" },
+  { id: "kontak", label: "Kontak Panitia", icon: "address-book" },
+];
 
 const labelStyle: React.CSSProperties = { display: "block", fontSize: 13, fontWeight: 600, color: "#6E7B66", marginBottom: 6 };
 
