@@ -1,0 +1,140 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  PSB theme — RETUNED to match eskahade-web's palette (src/components/ui/tokens.css)
+  so /psb feels seragam with the main site. Tailwind + preflight here are scoped:
+  this file is only imported by src/app/psb/layout.tsx, so it loads exclusively on
+  /psb routes and never touches the rest of the site (each route group owns its
+  own <html>/<body>). Brand greens, cream bg, gold accent, Bricolage headings.
+*/
+:root {
+  --radius: 0.875rem;
+
+  /* ── Brand & surface — mapped to eskahade-web tokens ───────────────── */
+  --bg: #f4f0e6;            /* web --bg (cream) */
+  --surface: #fbf9f2;       /* web --card */
+  --surface-alt: #f6f3ea;   /* web --card-alt */
+  --tint: #e7efe0;          /* web --green-soft */
+  --band: #e9eee2;          /* web --section-alt */
+  --cream: #f6f3ea;
+  --brand: #2e5237;         /* web --green */
+  --brand-hover: #26452d;   /* web --green-hover */
+  --brand-deep: #1f3a27;    /* web --green-deep */
+  --brand-deepest: #1a3221; /* web --footer-bg */
+  --gold: #d9a93a;          /* web --gold */
+  --ink: #283325;           /* web --text */
+  --text: #4c5645;          /* web --text-muted */
+  --text-soft: #5a6450;     /* web --text-dim */
+  --muted-ink: #8a9380;     /* web --text-placeholder */
+  --success: #2e5237;
+  --success-bg: #e7efe0;
+  --warn: #8a6a2c;
+  --warn-bg: #f4eedd;
+  --error: #c0533a;
+  --error-bg: #fbeee9;
+  --wa-green: #2f9e4f;
+
+  /* ── Token semantic shadcn/ui ──────────────────────────────────────── */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--surface);
+  --popover-foreground: var(--ink);
+  --primary: var(--brand);
+  --primary-foreground: #ffffff;
+  --secondary: var(--band);
+  --secondary-foreground: var(--brand-deep);
+  --muted: var(--surface-alt);
+  --muted-foreground: var(--muted-ink);
+  --accent: var(--cream);
+  --accent-foreground: var(--text);
+  --destructive: var(--error);
+  --destructive-foreground: #ffffff;
+  --border: #e6dfcc;        /* web --border */
+  --input: #e6dfcc;
+  --ring: var(--brand);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-bricolage), var(--font-jakarta), sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", monospace;
+
+  /* semantic */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* brand kustom -> kelas util Tailwind (bg-brand, text-brand, dst) */
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-deepest: var(--brand-deepest);
+  --color-gold: var(--gold);
+  --color-tint: var(--tint);
+  --color-band: var(--band);
+  --color-cream: var(--cream);
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-ink: var(--ink);
+  --color-text: var(--text);
+  --color-text-soft: var(--text-soft);
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+  --color-error: var(--error);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/40;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+  }
+}
+
+/* ── Print: hanya lembar cetak yang tampil ───────────────────────────── */
+@media print {
+  [data-screen],
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .print-sheet {
+    display: block !important;
+  }
+}

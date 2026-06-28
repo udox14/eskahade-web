@@ -1,9 +1,10 @@
 import { db } from "@/lib/db";
 import { adminUsers, sessions } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 
 const SESSION_COOKIE = "sk_sess";
+export const PSB_SESSION_COOKIE = "psb_sess"; // PSB santri (registrant) sessions
 const SESSION_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 // --- Password hashing (Web Crypto PBKDF2) ---
@@ -63,6 +64,7 @@ export async function loginUser(email: string, password: string): Promise<string
   const token = genToken();
   await db().insert(sessions).values({
     id: token,
+    role: "admin",
     userId: user.id,
     expiresAt: Date.now() + SESSION_TTL_MS,
     createdAt: Date.now(),
@@ -75,7 +77,7 @@ export async function validateSession(token: string) {
     .select({ session: sessions, user: adminUsers })
     .from(sessions)
     .innerJoin(adminUsers, eq(sessions.userId, adminUsers.id))
-    .where(eq(sessions.id, token))
+    .where(and(eq(sessions.id, token), eq(sessions.role, "admin")))
     .limit(1);
 
   if (!session) return null;
@@ -100,6 +102,56 @@ export async function getSessionFromCookies() {
 export function sessionCookieOptions(token: string) {
   return {
     name: SESSION_COOKIE,
+    value: token,
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax" as const,
+    path: "/",
+    maxAge: Math.floor(SESSION_TTL_MS / 1000),
+  };
+}
+
+// --- PSB santri (registrant) sessions ---
+// Polymorphic rows in the same `sessions` table, role='santri'. subjectId is the
+// pendaftar.id in eskahade-db. Cookie is psb_sess so it never collides with the
+// admin guard (which requires role='admin').
+
+export async function createSantriSession(pendaftarId: string): Promise<string> {
+  const token = genToken();
+  await db().insert(sessions).values({
+    id: token,
+    role: "santri",
+    subjectId: pendaftarId,
+    expiresAt: Date.now() + SESSION_TTL_MS,
+    createdAt: Date.now(),
+  });
+  return token;
+}
+
+export async function validateSantriSession(token: string): Promise<{ subjectId: string } | null> {
+  const [s] = await db()
+    .select()
+    .from(sessions)
+    .where(and(eq(sessions.id, token), eq(sessions.role, "santri")))
+    .limit(1);
+  if (!s || !s.subjectId) return null;
+  if (s.expiresAt < Date.now()) {
+    await db().delete(sessions).where(eq(sessions.id, token));
+    return null;
+  }
+  return { subjectId: s.subjectId };
+}
+
+export async function getSantriSessionFromCookies() {
+  const jar = await cookies();
+  const token = jar.get(PSB_SESSION_COOKIE)?.value;
+  if (!token) return null;
+  return validateSantriSession(token);
+}
+
+export function psbSessionCookieOptions(token: string) {
+  return {
+    name: PSB_SESSION_COOKIE,
     value: token,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

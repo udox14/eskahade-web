@@ -30,6 +30,9 @@ export const MODULE_REGISTRY: ModuleEntry[] = [
   { key: "gallery-categories", label: "Kategori Galeri", icon: "tag", href: "galeri/kategori", group: "Galeri" },
   // Struktur
   { key: "org", label: "Struktur Organisasi", icon: "tree-structure", href: "struktur", group: "Struktur" },
+  // PSB (Penerimaan Santri Baru)
+  { key: "psb-pendaftar", label: "Pendaftar PSB", icon: "users-three", href: "psb/pendaftar", group: "PSB" },
+  { key: "psb-konten", label: "Konten PSB", icon: "sliders-horizontal", href: "psb/konten", group: "PSB" },
   // Pengaturan
   { key: "settings", label: "Pengaturan Situs", icon: "gear", href: "pengaturan", group: "Pengaturan" },
   { key: "media", label: "Perpustakaan Media", icon: "folder-open", href: "media", group: "Pengaturan" },

@@ -8,6 +8,13 @@
       "when": 1782110705980,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1782634829727,
+      "tag": "0001_lying_jubilee",
+      "breakpoints": true
     }
   ]
 }

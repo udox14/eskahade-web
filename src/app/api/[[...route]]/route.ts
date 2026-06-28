@@ -20,12 +20,17 @@ import { getGalleryPhotos, getGalleryCategories, upsertGalleryPhoto, deleteGalle
 import { getOrgMembers, upsertOrgMember, deleteOrgMember, updateOrgOrder } from "@/modules/org/repo";
 import { getHistoryTimeline, getFacilities, upsertProfileHero, upsertSambutan, upsertVision, upsertHistoryItem, deleteHistoryItem, upsertMissionPoint, deleteMissionPoint, upsertFacility, deleteFacility } from "@/modules/profile/repo";
 import { upsertSettings } from "@/modules/settings/repo";
+import psbRouter from "@/server/psb/router";
 
 // No `runtime = "edge"` — under @opennextjs/cloudflare the default Node.js
 // runtime runs on workerd; forcing edge breaks module interop (undefined
 // default exports) and crashes routes like /api/auth/login.
 
 const app = new Hono().basePath("/api");
+
+// ─── PSB (penerimaan santri baru) — mounted sub-app at /api/psb/* ───────────
+// Has its own admin/santri guards; not affected by the /admin/* guard below.
+app.route("/psb", psbRouter);
 
 // ─── Auth ──────────────────────────────────────────────────────────────────
 app.post("/auth/login", async (c) => {

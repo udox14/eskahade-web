@@ -18,12 +18,24 @@
       "database_name": "sukahideng-web",
       "database_id": "af35c3a5-88fd-4012-b69d-6fdc03a1bf42",
       "migrations_dir": "db/migrations"
+    },
+    {
+      // Shared student DB — owns pendaftar/pendaftar_berkas (PSB registrant data).
+      // Managed by its own migrations elsewhere; do NOT set migrations_dir here.
+      "binding": "ESKAHADE_DB",
+      "database_name": "eskahade-db",
+      "database_id": "a2010f08-f314-46af-88fd-dbb9b4ef1bb1"
     }
   ],
   "r2_buckets": [
     {
       "binding": "BUCKET",
       "bucket_name": "sukahideng-foto"
+    },
+    {
+      // PSB registrant document uploads (berkas). Kept separate from site media.
+      "binding": "PSB_BUCKET",
+      "bucket_name": "eskahade-psb-foto"
     }
   ],
   "vars": {

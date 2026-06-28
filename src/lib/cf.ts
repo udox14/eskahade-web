@@ -12,3 +12,13 @@ export function getDB(): D1Database {
 export function getBucket(): R2Bucket {
   return getEnv().BUCKET;
 }
+
+// Shared student DB (eskahade-db) — holds PSB registrant data (pendaftar tables).
+export function getEskahadeDB(): D1Database {
+  return getEnv().ESKAHADE_DB;
+}
+
+// R2 bucket for PSB registrant document uploads (berkas).
+export function getPsbBucket(): R2Bucket {
+  return getEnv().PSB_BUCKET;
+}
